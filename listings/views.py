@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from . models import Listing   # add "." to find the model under the same apps
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q, F   # to import the Q and F objects from django
 
 # Create your views here.
 
 def listings(request):
+    # listings = Listing.objects.filter(Q(district='tst') | ~Q(district='mk'))   # Q object 
+    # listings = Listing.objects.filter(district=F('address'))   # F object  
     # listings = Listing.objects.all()    # Listing is the databse, use "listings" to hold all the variable from database
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)  # lastest listing is on top, only show the listing with "is_published"
     paginator = Paginator(listings, 3)  # Allocate 3 listings as a group
