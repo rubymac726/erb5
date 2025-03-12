@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from . models import Listing   # add "." to find the model under the same apps
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, F   # to import the Q and F objects from django
-from listings.choices import price_choices, bedroom_choices, disctrict_choices
+from listings.choices import price_choices, bedroom_choices, district_choices
 
 # Create your views here.
 
@@ -23,7 +23,7 @@ def listing(request, listing_id):
     return render(request, 'listings/listing.html',context)
 
 def search(request):
-    queryset_list = Listing.objects.order_by('-list_date')
+    queryset_list = Listing.objects.order_by('-list_date').filter(is_published=True)
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
         if keywords:
@@ -44,9 +44,18 @@ def search(request):
         bedrooms = request.GET['bedrooms']
         if bedrooms:
             queryset_list = queryset_list.filter(bedrooms__lte=bedrooms)
+  
+    paginator = Paginator(queryset_list, 3)  # Allocate 3 listings as a group
+    page = request.GET.get('page')      # GET is method and get is function, page holds the variables of the number of page
+    paged_listings = paginator.get_page(page) # paged_listings holds the variables of the page with 3 listings
+    values = request.GET.copy()
+    if 'page' in values:
+        del values["page"]
 
     context = {'price_choices' : price_choices,
                'bedroom_choices' : bedroom_choices,
-               'district_choices' : disctrict_choices
+               'district_choices' : district_choices,
+               'listings' : paged_listings,
+               'values' : request.GET,
     }
     return render(request, 'listings/search.html',context)

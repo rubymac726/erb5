@@ -24,7 +24,7 @@ price_choices = {
     '10000000':'$10M+'
 }
 
-disctrict_choices = {
+district_choices = {
     'Islands':'Islands',
     'Kwai Tsing':'Kwai Tsing',
     'Sai Kung':'Sai Kung',
