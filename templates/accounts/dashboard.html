@@ -1,10 +1,11 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% load humanize %} {% block content %}
 <section id="showcase-inner" class="py-5 text-white">
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
           <h1 class="display-4">User Dashboard</h1>
           <p class="lead">Manage your BC Real Estate account</p>
+          {% include 'partials/_alert.html' %}
         </div>
       </div>
     </div>
@@ -28,7 +29,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2>Welcome John</h2>
+          <h2>Welcome {{ user.first_name | title }}</h2>
           <p>Here are the property listings that you have inquired about</p>
           <table class="table">
             <thead>

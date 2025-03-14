@@ -8,14 +8,16 @@
               <h4><i class="fas fa-sign-in-alt"></i> Login</h4>
             </div>
             <div class="card-body">
-              <form action="{% url 'index' %}">
+              {% include 'partials/_alert.html' %}
+              <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
                 <div class="form-group">
                   <label for="username">Username</label>
                   <input
                     type="text"
                     name="username"
                     class="form-control"
-                    required
+                  required
                   />
                 </div>
 
@@ -25,7 +27,7 @@
                     type="password"
                     name="password"
                     class="form-control"
-                    required
+                  required
                   />
                 </div>
 
