@@ -149,3 +149,10 @@ MESSAGE_TAGS = {
     messages.ERROR : 'danger',
     messages.SUCCESS : 'success'
 }
+
+# email connected to personal account
+EMAIL_POST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = '' 
+EMAIL_USE_TLS = True
